@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etoak.mapper.BookMapper">
+   
+	<sql id="book-columns">
+		bookId,barcode,bookName,publish,bookAuthor,bookType,bookcount,nowcount
+	</sql>
+	
+	
+	<insert id="add" parameterType="book">
+		insert into
+			t_book(<include refid="book-columns"></include>)
+		values(#{bookId},#{barcode},#{bookName},#{publish},
+			   #{bookAuthor},#{bookType},#{nowcount},#{nowcount})
+	</insert>
+	
+	<select id="getbookId"
+			parameterType="java.lang.String"
+			resultType="book">
+			select 
+				<include refid="book-columns"></include>
+			from
+				t_book
+			where
+				bookId = #{bookId}
+	</select>
+	
+
+	<select id="query" parameterType="book"
+			resultType="book">
+	
+		select 
+			a.*,b.bookTypeName as bookTypeName
+		from
+		t_book a
+		left join
+		t_booktype b
+		on 
+			a.bookType = b.bookTypeId
+			
+	    <where>
+	    	<if test="bookName != null and bookName!= ''">
+				bookName like '%${bookName}%'
+	    	</if>
+
+	    </where>
+	
+	</select>
+	
+
+	
+	
+	
+</mapper>
