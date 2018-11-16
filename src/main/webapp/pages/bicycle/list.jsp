@@ -6,23 +6,23 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <%@include file="/easyui/include.jsp" %>
     <script type="text/javascript"
-            src="${pageContext.request.contextPath }/js/book/list.js"></script>
+            src="${pageContext.request.contextPath }/js/bicycle/list.js"></script>
     <title>Insert title here</title>
 </head>
 <body>
     <!-- 员工列表 -->
-    <table id="book-list"></table>
+    <table id="bicycle-list"></table>
 
-    <div id="book-list-toolbar">
-        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="eventObj.query();">查询</a>
+    <div id="bicycle-list-toolbar">
         <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="eventObj.add();">添加</a>
         <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-edit'"onclick="eventObj.update();">修改</a>
         <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-remove'"onclick="eventObj.remove();">删除</a>
+        <div style="float:right;box-sizing:border-box;">
+        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="eventObj.query();">查询</a>
+        </div>
     </div>
 
-    <div id="book-dialog" >
-
-
+    <div id="bicycle-dialog" >
     </div>
 
 </body>

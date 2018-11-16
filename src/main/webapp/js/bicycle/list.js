@@ -1,11 +1,11 @@
 $(function() {
 
     //初始化列表
-    $("#book-list").datagrid({
+    $("#bicycle-list").datagrid({
         //工具栏
-        toolbar : '#book-list-toolbar',
+        toolbar : '#bicycle-list-toolbar',
         //远程访问后台请求 并返回数据信息
-        url : contextPath + "/book/query",
+        url : contextPath + "/bicycle/query",
         //请求类型
         method : 'post',
         //是否显示斑马线
@@ -19,9 +19,9 @@ $(function() {
         //当前页
         pageNumber : 1,
         //每页记录数
-        pageSize : 10,
+        pageSize : 5,
         //每页记录数列表
-        pageList : [10,20,30],
+        pageList : [5,6,7],
         //自适应
         fit : true,
         //列自适应
@@ -29,10 +29,10 @@ $(function() {
         //列 接收后台响应的json信息
         columns : [[
             {title:"主键ID",field:"id",checkbox:true},
-            {title:"书名",field:"bookName",align:'center',width:50},
-            {title:"出版社",field:"publish",align:'center',width:80},
-            {title:"作者",field:"bookAuthor",align:'center',width:80},
-            {title:"类别",field:"bookTypeName",align:'center',width:60},
+            {title:"单车编号",field:"bicyclecode",align:'center',width:50},
+            {title:"单车型号",field:"bicycleName",align:'center',width:80},
+            {title:"供应商",field:"publish",align:'center',width:80},
+            {title:"单车类别",field:"bicycleTypeName",align:'center',width:60},
             {title:"剩余",field:"nowcount",align:'center',width:80,
                 formatter:function(value,row,index){
                     //value表示当前列的值 员工职位信息
@@ -54,13 +54,13 @@ $(function() {
 //操作事件
 var eventObj = {
     query : function() {
-        $("#book-dialog").dialog({
-            title: '员工查询',
+        $("#bicycle-dialog").dialog({
+            title: '查询',
             width: 400,
             height: 280,
             closed: false,
             cache: false,
-            href: contextPath + '/pages/book/query.jsp',
+            href: contextPath + '/pages/bicycle/query.jsp',
             modal: true ,
             buttons : [
                 {
@@ -68,28 +68,26 @@ var eventObj = {
                     iconCls : 'icon-search',
                     handler : function() {
                         //load方法会重新发送url属性和method属性
-                        $("#book-list").datagrid("load",{
-                            ename : $("#ename").textbox("getValue"),
-                            did : $("#did").combotree("getValue"),
-                            startTime : $("#startTime").datebox("getValue"),
-                            endTime : $("#endTime").datebox("getValue")
+                        $("#bicycle-list").datagrid("load",{
+                            bicycleName : $("#bicycleName").textbox("getValue"),
+                            bicycleType: $("#bicycleType").combotree("getValue")
                         });
                         //关闭查询窗口
-                        $("#book-dialog").dialog("close");
-                        $("#book-dialog").dialog("clear");
+                        $("#bicycle-dialog").dialog("close");
+                        $("#bicycle-dialog").dialog("clear");
                     }
                 }
             ]
         });
     },
     add : function(){
-        $("#book-dialog").dialog({
+        $("#bicycle-dialog").dialog({
             title: '增加',
             width: 400,
             height: 300,
             closed: false,
             cache: false,
-            href: contextPath + '/pages/book/addAndUpdate.jsp',
+            href: contextPath + '/pages/bicycle/addAndUpdate.jsp',
             modal: true ,
             buttons:[
                 {
@@ -97,22 +95,23 @@ var eventObj = {
                     iconCls:'icon-add',
                     handler:function(){
 
-                        $("#book-form").form("submit",{
+                        $("#bicycle-form").form("submit",{
 
-                            url:contextPath + '/book/add',
+                            url:contextPath + '/bicycle/add',
 
                             onSubmit : function(p){
                                 p.etoak = 'et1807';
 
-                                return $("#book-form").form('validate');
+                                return $("#bicycle-form").form('validate');
                             },
                             success : function(result){
+                                $("#bicycle-list").datagrid('reload');
                                 var data = $.parseJSON(result);
                                 if(data.code == '200') {
                                     //关闭窗口
-                                    $("#book-dialog").dialog("close");
+                                    $("#bicycle-dialog").dialog("close");
                                     //清除窗口信息
-                                    $("#book-dialog").dialog("clear");
+                                    $("#bicycle-dialog").dialog("clear");
                                 }
 
                                 $.messager.show({
@@ -132,33 +131,33 @@ var eventObj = {
 
     },
     update : function(){
-        var rows = $("#book-list").datagrid("getSelections");
-        var row = $('#book-list').datagrid('getSelected');
+        var rows = $("#bicycle-list").datagrid("getSelections");
+        var row = $('#bicycle-list').datagrid('getSelected');
 
         if(rows.length != 1){
             alert("你选中了"+rows.length+"条，修改功能只能选一条");
         }else {
 
-            $("#book-dialog").dialog({
+            $("#bicycle-dialog").dialog({
                 title: '修改',
                 width: 400,
                 height: 300,
                 closed: false,
                 cache: false,
-                href: contextPath + '/pages/book/addAndUpdate.jsp',
+                href: contextPath + '/pages/bicycle/addAndUpdate.jsp',
                 modal: true ,
                 onLoad:function(){
-                    $("#password").textbox('readonly');
-                    $("#eno").textbox('readonly');
-                    $('#cc').combotree('setValue', row.did);
-                    $('#cc').combotree('setText', row.dname);
-                    $('#book-form').form('load',{
-                        id:row.id,
-                        ename:row.ename,
-                        password:row.password,
-                        eno:row.eno,
-                        job:row.job,
-                        salary:row.salary,
+                    $("#bicycleId").textbox('readonly');
+                    $("#bicyclecode").textbox('readonly');
+                    $("#bicycleName").textbox('readonly');
+                    $("#nowcount").textbox('readonly');
+                    $('#bicycle-form').form('load',{
+                        bicycleId:row.bicycleId,
+                        bicyclecode:row.bicyclecode,
+                        bicycleName:row.bicycleName,
+                        publish:row.publish,
+                        bicycleType:row.bicycleType,
+                        nowcount:row.nowcount,
 
 
                     });
@@ -167,29 +166,29 @@ var eventObj = {
                 },
                 buttons:[
                     {
-                        text:'添加',
+                        text:'修改',
                         iconCls:'icon-add',
                         handler:function(){
 
-                            $("#book-form").form("submit",{
+                            $("#bicycle-form").form("submit",{
 
-                                url:contextPath + '/book/update',
+                                url:contextPath + '/bicycle/update',
 
                                 onSubmit : function(p){
                                     p.etoak = 'et1807';
 
-                                    return $("#book-form").form('validate');
+                                    return $("#bicycle-form").form('validate');
                                 },
                                 success : function(result){
 
-                                    $("#book-list").datagrid('reload');
+                                    $("#bicycle-list").datagrid('reload');
                                     var data = $.parseJSON(result);
                                     if(data.code == '200') {
 
                                         //关闭窗口
-                                        $("#book-dialog").dialog("close");
+                                        $("#bicycle-dialog").dialog("close");
                                         //清除窗口信息
-                                        $("#book-dialog").dialog("clear");
+                                        $("#bicycle-dialog").dialog("clear");
                                     }
 
                                     $.messager.show({
@@ -211,6 +210,40 @@ var eventObj = {
 
     },
     remove : function(){
+        var rows = $("#bicycle-list").datagrid("getSelections");
+        var row = $('#bicycle-list').datagrid('getSelected');
+
+        if(rows.length == 1){
+
+            $.ajax({
+                url: contextPath + '/bicycle/remove',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "id": row.bicycleId
+
+                },
+                async: false,
+                success: function(data) {
+                    $("#order-list").datagrid('reload');
+                    $.messager.show({
+                        title:'提示',
+                        msg:data.msg,
+                        timeout:5000,
+                        showType:'slide'
+                    });
+
+                }
+
+            });
+
+
+        }else {
+
+            alert("须选中1个");
+        }
+
+
 
     }
 };

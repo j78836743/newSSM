@@ -7,7 +7,7 @@
     <%@include file="/easyui/include.jsp" %>
     <script type="text/javascript"
             src="${pageContext.request.contextPath }/js/index.js"></script>
-    <title>图书管理系统</title>
+    <title>单车管理系统</title>
 </head>
 <body>
 <div class="easyui-layout" data-options="fit:true" >
@@ -27,24 +27,22 @@
 
     <div data-options="region:'west',title:'菜单',split:true,width:270">
         <div id="aa" class="easyui-accordion" data-options="fit:true">
-            <div title="图书信息管理" style="overflow:auto;padding:10px;">
+            <div title="单车信息管理" style="overflow:auto;padding:10px;">
                 <ul class="easyui-tree">
-                    <li><a class="opts" url="/book/list" >所有图书</a></li>
+                    <li><a class="opts" url="/bicycle/list" >所有单车</a></li>
                     <li><a class="opts" >其他</a></li>
 
                 </ul>
 
             </div>
-            <div title="借阅信息管理" style="padding:10px;">
+            <div title="借车信息管理" style="padding:10px;">
                 <ul class="easyui-tree">
-                    <li><a class="opts" url="/book/list1">借阅信息</a></li>
-                    <li><a class="opts" url="/book/list2">未还信息</a></li>
+                    <li><a class="opts" url="/order/list">借车信息</a></li>
+                    <li><a class="opts" url="/order/list2">其他信息</a></li>
 
                 </ul>
             </div>
-            <div title="Title3">
-                content3
-            </div>
+
         </div>
     </div>
     <div data-options="region:'center'">

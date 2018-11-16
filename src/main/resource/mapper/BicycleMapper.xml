@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etoak.mapper.BicycleMapper">
+   
+	<sql id="bicycle-columns">
+		bicycleId,bicyclecode,bicycleName,publish,bicycleType,bicyclecount,nowcount
+	</sql>
+	
+	
+	<insert id="add" parameterType="bicycle">
+		insert into
+			t_bicycle(<include refid="bicycle-columns"></include>)
+		values(#{bicycleId},#{bicyclecode},#{bicycleName},#{publish},
+			   #{bicycleType},#{nowcount},#{nowcount})
+	</insert>
+	
+	<select id="getbicycleName"
+			parameterType="java.lang.String"
+			resultType="bicycle">
+			select
+				*
+			from
+				t_bicycle
+			where
+				bicycleName = #{bicycleName}
+			AND
+				publish = #{publish}
+	</select>
+	
+
+	<select id="query" parameterType="bicycle"
+			resultType="bicycle">
+	
+		select 
+			a.*,b.bicycleTypeName as bicycleTypeName
+		from
+		t_bicycle a
+		left join
+		t_bicycletype b
+		on 
+			a.bicycleType = b.bicycleTypeId
+			
+	    <where>
+	    	<if test="bicycleName != null and bicycleName!= ''">
+				bicycleName like '%${bicycleName}%'
+	    	</if>
+			<if test="bicycleType != null">
+				and bicycleType = #{bicycleType}
+			</if>
+	    </where>
+	
+	</select>
+
+
+	<update id="update" parameterType="bicycle">
+		update
+		t_bicycle
+		set
+		bicycleType = #{bicycleType},
+		publish = #{publish}
+
+		where
+		bicycleId = #{bicycleId}
+	</update>
+
+	<select id="getbicyclecodeAndbicycleName" parameterType="java.lang.Integer" resultType="bicycle">
+		select
+		*
+		from
+		t_bicycle
+		where
+		1=1
+
+	</select>
+
+	<select id="getnowcountBybicyclecode"
+			parameterType="java.lang.String"
+			resultType="bicycle">
+		select
+		*
+		from
+		t_bicycle
+		where
+			bicyclecode = #{bicyclecode}
+
+	</select>
+
+
+	<update id="send" parameterType="bicycle">
+		update
+		t_bicycle
+		set
+			nowcount = #{nowcount}
+		where
+		bicycleId = #{bicycleId}
+	</update>
+
+	<delete id="remove" parameterType="java.lang.Integer">
+		DELETE
+		FROM t_bicycle
+		WHERE bicycleId = #{id}
+
+
+	</delete>
+
+
+
+	<select id="getbicycleId"
+			parameterType="java.lang.Integer"
+			resultType="bicycle">
+		select
+		*
+		from
+		t_bicycle
+		where
+			bicycleId = #{bicycleId}
+
+	</select>
+
+
+</mapper>
