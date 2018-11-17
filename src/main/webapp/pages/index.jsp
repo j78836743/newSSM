@@ -38,7 +38,7 @@
             <div title="借车信息管理" style="padding:10px;">
                 <ul class="easyui-tree">
                     <li><a class="opts" url="/order/list">借车信息</a></li>
-                    <li><a class="opts" url="/order/list2">其他信息</a></li>
+                    <li><a class="opts" url="/order/list1">其他信息</a></li>
 
                 </ul>
             </div>

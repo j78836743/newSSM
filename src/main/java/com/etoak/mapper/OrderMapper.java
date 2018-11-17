@@ -29,4 +29,10 @@ public interface OrderMapper {
 	public int acount();
 
 	public int acount1();
+
+	public int acounta();
+	public int acountb();
+	public int acountc();
+	public int acountd();
+
 }

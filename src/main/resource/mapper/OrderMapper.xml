@@ -77,4 +77,40 @@
 		WHERE to_days(terTime) = to_days(now());
 	</select>
 
+    <select id="acounta" resultType="java.lang.Integer">
+
+        select
+        count(terTime)
+        from
+        t_order
+        WHERE to_days(terTime) = to_days(now())
+         AND bicyclecode IN (SELECT bicyclecode FROM t_bicycle WHERE bicycleType =1)
+    </select>
+    <select id="acountb" resultType="java.lang.Integer">
+
+        select
+            count(terTime)
+        from
+            t_order
+        WHERE to_days(terTime) = to_days(now())
+              AND bicyclecode IN (SELECT bicyclecode FROM t_bicycle WHERE bicycleType =2)
+    </select>
+    <select id="acountc" resultType="java.lang.Integer">
+
+        select
+            count(terTime)
+        from
+            t_order
+        WHERE to_days(terTime) = to_days(now())
+              AND bicyclecode IN (SELECT bicyclecode FROM t_bicycle WHERE bicycleType =3)
+    </select>
+    <select id="acountd" resultType="java.lang.Integer">
+
+        select
+            count(terTime)
+        from
+            t_order
+        WHERE to_days(terTime) = to_days(now())
+              AND bicyclecode IN (SELECT bicyclecode FROM t_bicycle WHERE bicycleType =4)
+    </select>
 </mapper>

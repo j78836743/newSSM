@@ -27,6 +27,8 @@ public class OrderController {
 		return "order/list";
 	}
 
+
+
 	@ResponseBody
 	@RequestMapping(value = "/query")
 	public Map<String, Object> query(
@@ -34,6 +36,8 @@ public class OrderController {
 		return orderservice.query(page, rows, order);
 
 	}
+
+
 
 	@ResponseBody
 	@RequestMapping(value = "/add")
@@ -66,7 +70,12 @@ public class OrderController {
 	public ResultMsg acount(){
 		int i = 	orderservice.acount();
 		int x= orderservice.acount1();
-		return new ResultMsg(200, "今天"+i+"车借出"+",归还"+x);
+		int a = orderservice.acounta();
+		int b = orderservice.acountb();
+		int c = orderservice.acountc();
+		int d = orderservice.acountd();
+		return new ResultMsg(200, "今天共"+i+"车借出"+",归还。其中公路车"+a+"旅行车"+b+"山地车"+c+"折叠车"+d);
+
 
 	}
 

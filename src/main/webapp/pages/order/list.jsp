@@ -15,7 +15,7 @@
 
     <div id="order-list-toolbar">
         <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="eventObj1.add();">租赁单车</a>
-        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="eventObj1.acount();">统计今天</a>
+        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="eventObj1.account();">租赁单车</a>
 
     <div id="order-dialog" >
     </div>

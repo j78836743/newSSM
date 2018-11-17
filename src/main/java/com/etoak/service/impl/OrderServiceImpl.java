@@ -2,6 +2,7 @@ package com.etoak.service.impl;
 
 import com.etoak.bean.Bicycle;
 import com.etoak.bean.Order;
+import com.etoak.bean.U;
 import com.etoak.mapper.BicycleMapper;
 import com.etoak.mapper.OrderMapper;
 import com.etoak.service.OrderService;
@@ -93,6 +94,46 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public int acount1() {
 		return orderemapper.acount1();
+	}
+
+	@Override
+	public int acounta() {
+		return orderemapper.acounta();
+	}
+
+	@Override
+	public int acountb() {
+		return orderemapper.acountb();
+	}
+
+	@Override
+	public int acountc() {
+		return orderemapper.acountc();
+	}
+
+	@Override
+	public int acountd() {
+		return orderemapper.acountd();
+	}
+
+	@Override
+	public Map<String, Object> querycount(Integer page, Integer rows, U u) {
+		PageHelper.startPage(page,rows);
+		List<U> list =null;
+		U uu = new U();
+		uu.setDate(new Date());
+		uu.setA(orderemapper.acounta());
+		uu.setB(orderemapper.acountb());
+		uu.setC(orderemapper.acountc());
+		uu.setD(orderemapper.acountd());
+
+		PageInfo<U> p = new PageInfo<>(list);
+		Map<String,Object> result = new HashMap<>();
+		result.put("rows",list);
+		result.put("total",p.getTotal());
+
+		return result;
+
 	}
 
 
